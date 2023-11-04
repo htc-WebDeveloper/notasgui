@@ -1,6 +1,7 @@
 import tkinter as tk                        #importo la libreria de GUI
 
 raiz = tk.Tk()                              #creo una interfaz grafica de usuario
+raiz.title("Notas v0.01")                   #especifico el titulo de la ventana
 
 try:                                        #intento ejecutar
     from ctypes import windll               #importo la libreria especifica de GUI de Windows
