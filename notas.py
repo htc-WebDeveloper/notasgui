@@ -19,15 +19,15 @@ version.pack()                              #lo añadimos a la ventana
 
 inputusuario = ttk.Entry(raiz)              #creo una entrada para que el usuario diga quien es
 inputusuario.insert(0,'Introduce tu usuario')   #creo un texto de inicio en la entrada
-inputusuario.pack()                         #empaqueto la entrada
+inputusuario.pack(pady=20)                  #empaqueto la entrada
 
 inputcontrasena = ttk.Entry(raiz)           #creo una entrada para que el usuario diga su contraseña
 inputcontrasena.insert(0,'Introduce tu contraseña')   #creo un texto de inicio en la entrada
-inputcontrasena.pack()                         #empaqueto la entrada
+inputcontrasena.pack(pady=20)               #empaqueto la entrada
 
 inputemail = ttk.Entry(raiz)                #creo una entrada para que el usuario diga su email
 inputemail.insert(0,'Introduce tu email')   #creo un texto de inicio en la entrada
-inputemail.pack()                           #empaqueto la entrada
+inputemail.pack(pady=20)                    #empaqueto la entrada
 
 #########################INTENTO INTRODUCIR ANTIALIAS EN WINDOWS Y LANZO EL BUCLE###############
 
