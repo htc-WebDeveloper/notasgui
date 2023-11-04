@@ -2,10 +2,10 @@ import tkinter as tk                        #importo la libreria de GUI
 
 raiz = tk.Tk()                              #creo una interfaz grafica de usuario
 raiz.title("Notas v0.01")                   #especifico el titulo de la ventana
-raiz.geometry('200x200+50+50')              #geometria de la ventana y margen con la pantalla
+raiz.geometry('300x300+50+50')              #geometria de la ventana y margen con la pantalla
 raiz.attributes("-topmost",True)            #siempre encima del resto de las ventanas
 raiz.attributes("-alpha",0.9)               #añado un efecto de transparencia
-raiz.attributes("-toolwindow",True)         #convierte la ventana en una ventana auxiliar
+raiz.resizable(0,0)                         #impido que el usuario pueda redimensionar la ventana
 
 try:                                        #intento ejecutar
     from ctypes import windll               #importo la libreria especifica de GUI de Windows
