@@ -41,26 +41,38 @@ def login():                                                                    
     datos = cursor.fetchall()                                                       #cargo los datos
     numerousuarios = 0                                                              #creo una varible contador
     for i in datos:                                                                 #para cada uno de los registros
-        numerousuarios = numerousuarios + 1                                          #le sumo valor al contador
+        numerousuarios = numerousuarios + 1                                         #le sumo valor al contador
     if(numerousuarios == 0):                                                        #si no hay usuarios
         print("No hay usuarios en la base de datos")
         cursor.execute("INSERT INTO usuarios VALUES(NULL,'"+usuario.get()+"','"+password.get()+"','"+correo.get()+"');") #Inserto una a una las notas en la base de datos
         conexion.commit()                                                           #ejecuto la insercion
     else:                                                                           #si hay usuarios
-        cursor.execute("INSERT INTO usuarios VALUES(NULL,'"+usuario.get()+"','"+password.get()+"','"+correo.get()+"');") #Inserto una a una las notas en la base de datos
-        conexion.commit()
+        #cursor.execute("INSERT INTO usuarios VALUES(NULL,'"+usuario.get()+"','"+password.get()+"','"+correo.get()+"');") #Inserto una a una las notas en la base de datos
+        #conexion.commit()
         print("Actualmente en la base de datos hay esta cantidad de usuarios "+str(numerousuarios))
+        cursor.execute('SELECT * FROM usuarios WHERE usuario = "'+usuario.get()+'" AND contrasena = "'+password.get()+'" AND email = "'+correo.get()+'"')
+        
+        existe = False                                                              
+        datos = cursor.fetchall()                                                   #cargo los datos
+        for i in datos:                                                             #para cada uno de los registros
+            existe = True                                                           #actualizo el valor
+        if existe == True:                                                           #si existe
+            print("el usuario introducido es correcto")
+        else:                                                                       #si no existe
+            print("el usuario no es correcto")
+            raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
 raiz = tk.Tk()                                                                      #creo una interfaz grafica de usuario
 raiz.title("Notas v0.01")                                                           #especifico el titulo de la ventana
-raiz.geometry('300x300+50+50')                                                      #geometria de la ventana y margen con la pantalla
+raiz.geometry('350x300+50+50')                                                      #geometria de la ventana y margen con la pantalla
 raiz.attributes("-topmost",True)                                                    #siempre encima del resto de las ventanas
 raiz.attributes("-alpha",0.9)                                                       #añado un efecto de transparencia
 raiz.resizable(0,0)                                                                 #impido que el usuario pueda redimensionar la ventana
 estilo = ttk.Style()                                                                #añado soporte para estilos
 estilo.theme_use('default')                                                         #selecciono el estilo clasico de aplicaciones
+raiz.iconbitmap("icono.ico")
 
 ####################DECLARO VARIABLES GLOBALES DEL PROGRAMA#############################
 
