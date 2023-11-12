@@ -52,21 +52,20 @@ def login():                                                                    
         print("Actualmente en la base de datos hay esta cantidad de usuarios "+str(numerousuarios))
         cursor.execute('SELECT * FROM usuarios WHERE usuario = "'+usuario.get()+'" AND contrasena = "'+password.get()+'" AND email = "'+correo.get()+'"')
         
-        existe = False                                                              
+        existe = False
+        existe = True   #FUERZO PARA NO TENER QUE VALIDAR DURANTE EL RESARROLLO
         datos = cursor.fetchall()                                                   #cargo los datos
         for i in datos:                                                             #para cada uno de los registros
             existe = True                                                           #actualizo el valor
         if existe == True:                                                          #si existe
             print("el usuario introducido es correcto")
-            ventana = tk.Tk()                                                       #creo una interfaz grafica de usuario
-            ventana.title("Notas v0.01")                                            #especifico el titulo de la ventana
-            ventana.geometry('350x300+50+50')                                       #geometria de la ventana y margen con la pantalla
-            ventana.attributes("-topmost",True)                                     #siempre encima del resto de las ventanas
-            ventana.attributes("-alpha",0.9)                                        #añado un efecto de transparencia
-            ventana.resizable(0,0)                                                  #impido que el usuario pueda redimensionar la ventana
-            ventana = ttk.Style()                                                   #añado soporte para estilos
-            ventana.theme_use('default')                                            #selecciono el estilo clasico de aplicaciones
-            raiz.destroy()                                                          #cierra la secundaria y me quedo con la principal
+            marco.destroy()                                                          #cierra la secundaria y me quedo con la principal
+            marco2 = ttk.Frame(raiz)                                                #creo un nuevo marco
+            marco2.pack()                                                           #empaqueto
+            iconoaplicacion = tk.PhotoImage(file="icono.png")                       #cargo la imagen
+            etiquetaicono = ttk.Label(marco2,text="Notas v0.01",image=iconoaplicacion,compound=tk.TOP,font=("sans-serif",14))   #muestro la imagen en el label
+            etiquetaicono.image = iconoaplicacion                                   #especifico de nuevo la imagen
+            etiquetaicono.pack()                                                    #empaqueto
         
         else:                                                                       #si no existe
             print("el usuario no es correcto")
@@ -92,22 +91,25 @@ correo = tk.StringVar()                                                         
 
 #########################AÑADIMOS WIDGETS A LA VENTANA############################
 
-version = tk.Label(raiz,text="Notas v0.01")                                         #creamos un label
+marco = ttk.Frame(raiz)
+marco.pack()
+
+version = tk.Label(marco,text="Notas v0.01")                                         #creamos un label
 version.pack()                                                                      #lo añadimos a la ventana
 
-inputusuario = ttk.Entry(raiz,textvariable = usuario)                               #creo una entrada para que el usuario diga quien es
+inputusuario = ttk.Entry(marco,textvariable = usuario)                               #creo una entrada para que el usuario diga quien es
 inputusuario.insert(0,'Introduce tu usuario')                                       #creo un texto de inicio en la entrada
 inputusuario.pack(pady=20)                                                          #empaqueto la entrada
 
-inputcontrasena = ttk.Entry(raiz,textvariable = password)                           #creo una entrada para que el usuario diga su contraseña
+inputcontrasena = ttk.Entry(marco,textvariable = password)                           #creo una entrada para que el usuario diga su contraseña
 inputcontrasena.insert(0,'Introduce tu contraseña')                                 #creo un texto de inicio en la entrada
 inputcontrasena.pack(pady=20)                                                       #empaqueto la entrada
 
-inputemail = ttk.Entry(raiz,textvariable = correo)                                  #creo una entrada para que el usuario diga su email
+inputemail = ttk.Entry(marco,textvariable = correo)                                  #creo una entrada para que el usuario diga su email
 inputemail.insert(0,'Introduce tu email')                                           #creo un texto de inicio en la entrada
 inputemail.pack(pady=20)                                                            #empaqueto la entrada
 
-botonlogin = ttk.Button(raiz,text="Enviar",command=login)                           #creo el boton de iniciar sesion
+botonlogin = ttk.Button(marco,text="Enviar",command=login)                           #creo el boton de iniciar sesion
 botonlogin.pack(pady=10,expand=True)                                                #lo empaqueto
 
 #########################INTENTO INTRODUCIR ANTIALIAS EN WINDOWS Y LANZO EL BUCLE###############
