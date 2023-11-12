@@ -66,10 +66,16 @@ def login():                                                                    
             etiquetaicono = ttk.Label(marco2,text="Notas v0.01",image=iconoaplicacion,compound=tk.TOP,font=("sans-serif",14))   #muestro la imagen en el label
             etiquetaicono.image = iconoaplicacion                                   #especifico de nuevo la imagen
             etiquetaicono.pack()                                                    #empaqueto
+            botonnuevanota = ttk.Button(marco2,text="Nueva nota",command=crearNota)          #creo el boton de iniciar sesion
+            botonnuevanota.pack(pady=10,expand=True)                                    #lo empaqueto
         
         else:                                                                       #si no existe
             print("el usuario no es correcto")
             raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
+
+def crearNota():
+    pass
+
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
