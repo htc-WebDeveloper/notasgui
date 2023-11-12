@@ -1,16 +1,15 @@
 import tkinter as tk                        #importo la libreria de GUI
 from tkinter import ttk                     #importo la nueva libreria ttk
 
-####################DECLARO VARIABLES GLOBALES DEL PROGRAMA#############################
 
-Usuario = tk.StringVar()                    #variable para almacenar el usuario
-Password = tk.StringVar()                   #variable para almacenar la contraseña
-Correo = tk.StringVar()                     #variable para almacenar el correo
 
 #####################DECLARO FUNCIONES PARA EL PROGRAMA#############################
 
 def login():                                #función de inicio de sesion
     print("vamos a iniciar sesion")         #imprime en pantalla
+    print("El nombre de usuario es "+usuario.get())
+    print("La contraseña es "+password.get())
+    print("El correo del usuario es "+correo.get())
 
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
@@ -24,20 +23,26 @@ raiz.resizable(0,0)                         #impido que el usuario pueda redimen
 estilo = ttk.Style()                        #añado soporte para estilos
 estilo.theme_use('default')                 #selecciono el estilo clasico de aplicaciones
 
+####################DECLARO VARIABLES GLOBALES DEL PROGRAMA#############################
+
+usuario = tk.StringVar()                    #variable para almacenar el usuario
+password = tk.StringVar()                   #variable para almacenar la contraseña
+correo = tk.StringVar()                     #variable para almacenar el correo
+
 #########################AÑADIMOS WIDGETS A LA VENTANA############################
 
 version = tk.Label(raiz,text="Notas v0.01") #creamos un label
 version.pack()                              #lo añadimos a la ventana
 
-inputusuario = ttk.Entry(raiz)              #creo una entrada para que el usuario diga quien es
+inputusuario = ttk.Entry(raiz,textvariable = usuario)              #creo una entrada para que el usuario diga quien es
 inputusuario.insert(0,'Introduce tu usuario')   #creo un texto de inicio en la entrada
 inputusuario.pack(pady=20)                  #empaqueto la entrada
 
-inputcontrasena = ttk.Entry(raiz)           #creo una entrada para que el usuario diga su contraseña
+inputcontrasena = ttk.Entry(raiz,textvariable = password)           #creo una entrada para que el usuario diga su contraseña
 inputcontrasena.insert(0,'Introduce tu contraseña')   #creo un texto de inicio en la entrada
 inputcontrasena.pack(pady=20)               #empaqueto la entrada
 
-inputemail = ttk.Entry(raiz)                #creo una entrada para que el usuario diga su email
+inputemail = ttk.Entry(raiz,textvariable = correo)                #creo una entrada para que el usuario diga su email
 inputemail.insert(0,'Introduce tu email')   #creo un texto de inicio en la entrada
 inputemail.pack(pady=20)                    #empaqueto la entrada
 
