@@ -1,6 +1,31 @@
 import tkinter as tk                        #importo la libreria de GUI
 from tkinter import ttk                     #importo la nueva libreria ttk
+import sqlite3 as bd                        #importo la libreria SQLite
 
+####################################CONEXION INICIAL CON LA BASE DE DATOS##########################
+
+conexion = bd.connect("notas.sqlite")   #Indico el nombre de la base de datos
+cursor = conexion.cursor()              #Creo un cursor
+#Sobre el cursor, ejecuto una peticón para crear una tabla en la base de datos en el caso de que no exista
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS 'notas'(
+        'id' INTEGER,
+        'texto' TEXT,
+        'color' TEXT,
+        'fecha' TEXT,
+        PRIMARY KEY('id' AUTOINCREMENT)
+    );
+""")
+#Sobre el cursor ejecuto una petición para crear una tabla de usuarios en el caso de que no exista
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS 'usuarios'(
+        'id' INTEGER,
+        'usuario' TEXT,
+        'contrasena' TEXT,
+        'email' TEXT,
+        PRIMARY KEY('id' AUTOINCREMENT)
+    );
+""")
 
 
 #####################DECLARO FUNCIONES PARA EL PROGRAMA#############################
