@@ -1,5 +1,11 @@
 import tkinter as tk                        #importo la libreria de GUI
-from tkinter import ttk                     #importo la nueva libreria ttk     
+from tkinter import ttk                     #importo la nueva libreria ttk
+
+####################DECLARO VARIABLES GLOBALES DEL PROGRAMA#############################
+
+Usuario = tk.StringVar()                    #variable para almacenar el usuario
+Password = tk.StringVar()                   #variable para almacenar la contraseña
+Correo = tk.StringVar()                     #variable para almacenar el correo
 
 #####################DECLARO FUNCIONES PARA EL PROGRAMA#############################
 
