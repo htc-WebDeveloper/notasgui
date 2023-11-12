@@ -1,6 +1,12 @@
 import tkinter as tk                        #importo la libreria de GUI
 from tkinter import ttk                     #importo la nueva libreria ttk     
 
+#####################DECLARO FUNCIONES PARA EL PROGRAMA#############################
+
+def login():                                #función de inicio de sesion
+    print("vamos a iniciar sesion")         #imprime en pantalla
+
+
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
 raiz = tk.Tk()                              #creo una interfaz grafica de usuario
@@ -29,7 +35,7 @@ inputemail = ttk.Entry(raiz)                #creo una entrada para que el usuari
 inputemail.insert(0,'Introduce tu email')   #creo un texto de inicio en la entrada
 inputemail.pack(pady=20)                    #empaqueto la entrada
 
-botonlogin = ttk.Button(raiz,text="Enviar") #creo el boton de iniciar sesion
+botonlogin = ttk.Button(raiz,text="Enviar",command=login) #creo el boton de iniciar sesion
 botonlogin.pack(pady=10,expand=True)        #lo empaqueto
 
 #########################INTENTO INTRODUCIR ANTIALIAS EN WINDOWS Y LANZO EL BUCLE###############
@@ -41,3 +47,11 @@ except Exception as e:                      #atrapo la excepcion en caso de que 
     print(e)                                #saco la excepcion por pantalla
 finally:                                    #en todo caso:    
     raiz.mainloop()                         #detiene la ejecucion y previene que la ventana se cierre
+
+
+
+
+
+
+
+    
