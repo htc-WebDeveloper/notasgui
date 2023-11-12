@@ -56,8 +56,18 @@ def login():                                                                    
         datos = cursor.fetchall()                                                   #cargo los datos
         for i in datos:                                                             #para cada uno de los registros
             existe = True                                                           #actualizo el valor
-        if existe == True:                                                           #si existe
+        if existe == True:                                                          #si existe
             print("el usuario introducido es correcto")
+            ventana = tk.Tk()                                                       #creo una interfaz grafica de usuario
+            ventana.title("Notas v0.01")                                            #especifico el titulo de la ventana
+            ventana.geometry('350x300+50+50')                                       #geometria de la ventana y margen con la pantalla
+            ventana.attributes("-topmost",True)                                     #siempre encima del resto de las ventanas
+            ventana.attributes("-alpha",0.9)                                        #añado un efecto de transparencia
+            ventana.resizable(0,0)                                                  #impido que el usuario pueda redimensionar la ventana
+            ventana = ttk.Style()                                                   #añado soporte para estilos
+            ventana.theme_use('default')                                            #selecciono el estilo clasico de aplicaciones
+            raiz.destroy()                                                          #cierra la secundaria y me quedo con la principal
+        
         else:                                                                       #si no existe
             print("el usuario no es correcto")
             raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
