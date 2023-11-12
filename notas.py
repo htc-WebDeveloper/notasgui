@@ -74,8 +74,12 @@ def login():                                                                    
             raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
 
 def crearNota():
-    pass
-
+    ventananuevanota = tk.Toplevel()                                                #nueva ventana flotante
+    anchura = 300                                                                   #defino anchura
+    altura = 300                                                                    #defino altura
+    ventananuevanota.geometry(str(anchura)+'x'+str(altura)+'+100+100')              #geometria de la ventana y margen con la pantalla
+    ventananuevanota.iconbitmap("icono.ico")                                        #icono de la ventana
+    
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
@@ -87,8 +91,8 @@ raiz.attributes("-alpha",0.9)                                                   
 raiz.resizable(0,0)                                                                 #impido que el usuario pueda redimensionar la ventana
 estilo = ttk.Style()                                                                #añado soporte para estilos
 estilo.theme_use('default')                                                         #selecciono el estilo clasico de aplicaciones
-raiz.iconbitmap("icono.ico")
-
+raiz.iconbitmap("icono.ico")                                                        #icono de la ventana
+    
 ####################DECLARO VARIABLES GLOBALES DEL PROGRAMA#############################
 
 usuario = tk.StringVar()                                                            #variable para almacenar el usuario
