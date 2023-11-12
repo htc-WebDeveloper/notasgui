@@ -21,8 +21,8 @@ cursor.execute("""
     CREATE TABLE IF NOT EXISTS 'usuarios'(
         'id' INTEGER,
         'usuario' TEXT,
-        'contrasena' TEXT,
-        'email' TEXT,
+        'password' TEXT,
+        'correo' TEXT,
         PRIMARY KEY('id' AUTOINCREMENT)
     );
 """)
@@ -36,15 +36,20 @@ def login():                                                                    
     print("La contraseña es "+password.get())
     print("El correo del usuario es "+correo.get())
     #Voy a comprobar si existe un usuario en la base de datos
+    cursor = conexion.cursor() 
     cursor.execute('SELECT * FROM usuarios')                                        #Ejecuto una petición para seleccionar usuarios
     datos = cursor.fetchall()                                                       #cargo los datos
     numerousuarios = 0                                                              #creo una varible contador
     for i in datos:                                                                 #para cada uno de los registros
-        numerousuarios = numerousuarios +1                                          #le sumo valor al contador
+        numerousuarios = numerousuarios + 1                                          #le sumo valor al contador
     if(numerousuarios == 0):                                                        #si no hay usuarios
-        print("No hay usuarios en la base de datos")                                        
+        print("No hay usuarios en la base de datos")
+        cursor.execute("INSERT INTO usuarios VALUES(NULL,'"+usuario.get()+"','"+password.get()+"','"+correo.get()+"');") #Inserto una a una las notas en la base de datos
+        conexion.commit()                                                           #ejecuto la insercion
     else:                                                                           #si hay usuarios
-        print("Actualmente en la base de datos hay esta cantidad de usuarios "+numerousuarios)
+        cursor.execute("INSERT INTO usuarios VALUES(NULL,'"+usuario.get()+"','"+password.get()+"','"+correo.get()+"');") #Inserto una a una las notas en la base de datos
+        conexion.commit()
+        print("Actualmente en la base de datos hay esta cantidad de usuarios "+str(numerousuarios))
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
