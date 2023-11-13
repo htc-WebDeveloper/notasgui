@@ -82,12 +82,13 @@ def crearNota():
     ventananuevanota.iconbitmap("icono.ico")                                        #icono de la ventana
     texto = tk.Text(ventananuevanota,bg="white")
     texto.pack()
-    selectorcolor = ttk.Button(ventananuevanota,text="Cambiar color",command=lambda:cambiaColor(ventananuevanota))
+    selectorcolor = ttk.Button(ventananuevanota,text="Cambiar color",command=lambda:cambiaColor(ventananuevanota,texto))
     selectorcolor.pack()
 
-def cambiaColor(ventana):                                                           #creo la funcion de cambio de color
+def cambiaColor(ventana,texto):                                                           #creo la funcion de cambio de color
     nuevocolor = askcolor(title="Selecciona un color")                              #saco un selector de color
     ventana.configure(bg = nuevocolor[1])                                           #cambio el color de fondo a la ventana a la ventana seleccionada
+    texto.configure(bg = nuevocolor[1])                                           #cambio el color del texto
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
