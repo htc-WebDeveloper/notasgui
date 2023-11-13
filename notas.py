@@ -89,7 +89,7 @@ def crearNota():
     fecha = str(int(time.time()))                                                   #saco la fecha actual
     
     notas.append(Nota(identificador,'','',fecha))                                   #añado la nota a la lista
-    identificador = identificador + 1                                               #subo el identificador
+    
     for i in notas:                                                                 #Para cada una de las notas
         print(i.identificador)                                                      #imprimo el identificador
         print(i.texto)                                                              #Imprimo su contenido
@@ -104,13 +104,22 @@ def crearNota():
     ventananuevanota.iconbitmap("icono.ico")                                        #icono de la ventana
     texto = tk.Text(ventananuevanota,bg="white")
     texto.pack()
-    selectorcolor = ttk.Button(ventananuevanota,text="Cambiar color",command=lambda:cambiaColor(ventananuevanota,texto))
+    identificadorpropio = identificador
+    selectorcolor = ttk.Button(ventananuevanota,text="Cambiar color",command=lambda:cambiaColor(ventananuevanota,texto,identificadorpropio))
     selectorcolor.pack()
+    identificador = identificador + 1                                               #subo el identificador
 
-def cambiaColor(ventana,texto):                                                           #creo la funcion de cambio de color
+def cambiaColor(ventana,texto,identificador):                                       #creo la funcion de cambio de color
     nuevocolor = askcolor(title="Selecciona un color")                              #saco un selector de color
     ventana.configure(bg = nuevocolor[1])                                           #cambio el color de fondo a la ventana a la ventana seleccionada
     texto.configure(bg = nuevocolor[1])                                             #cambio el color del cuadro de texto de la nota
+    notas[identificador].color = nuevocolor[1]
+    print("El identificador es "+str(identificador))
+    for i in notas:                                                                 #Para cada una de las notas
+        print(i.identificador)                                                      #imprimo el identificador
+        print(i.texto)                                                              #Imprimo su contenido
+        print(i.color)                                                              #Imprimo su color
+        print(i.fecha)                                                              #Imprimo su fecha
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
