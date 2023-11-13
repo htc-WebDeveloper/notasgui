@@ -1,7 +1,16 @@
 import tkinter as tk                                                                #importo la libreria de GUI
 from tkinter import ttk                                                             #importo la nueva libreria ttk
 import sqlite3 as bd                                                                #importo la libreria SQLite
-from tkinter.colorchooser import askcolor                                         #importo el selector de color
+from tkinter.colorchooser import askcolor                                           #importo el selector de color
+import time
+
+class Nota:                                                                         #Declaramos una clase
+    def __init__(self,identificador,texto,color,fecha):                                           #Metodo constructor
+        self.identificador = identificador
+        self.texto = texto                                                          #Creo una propiedad texto
+        self.color = color                                                          #Creo una propiedad color
+        self.fecha = fecha                                                          #Creo una propiedad fecha
+
 
 ####################################CONEXION INICIAL CON LA BASE DE DATOS##########################
 
@@ -75,6 +84,19 @@ def login():                                                                    
             raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
 
 def crearNota():
+    global notas                                                                    #traigo la variable global notas
+    global identificador                                                            #traigo la variable global identificador
+    fecha = str(int(time.time()))                                                   #saco la fecha actual
+    
+    notas.append(Nota(identificador,'','',fecha))                                   #añado la nota a la lista
+    identificador = identificador + 1                                               #subo el identificador
+    for i in notas:                                                                 #Para cada una de las notas
+        print(i.identificador)                                                      #imprimo el identificador
+        print(i.texto)                                                              #Imprimo su contenido
+        print(i.color)                                                              #Imprimo su color
+        print(i.fecha)                                                              #Imprimo su fecha
+   
+    
     ventananuevanota = tk.Toplevel()                                                #nueva ventana flotante
     anchura = 400                                                                   #defino anchura
     altura = 500                                                                    #defino altura
@@ -88,7 +110,7 @@ def crearNota():
 def cambiaColor(ventana,texto):                                                           #creo la funcion de cambio de color
     nuevocolor = askcolor(title="Selecciona un color")                              #saco un selector de color
     ventana.configure(bg = nuevocolor[1])                                           #cambio el color de fondo a la ventana a la ventana seleccionada
-    texto.configure(bg = nuevocolor[1])                                           #cambio el color del texto
+    texto.configure(bg = nuevocolor[1])                                             #cambio el color del cuadro de texto de la nota
 
 #######################CREACION DE LA VENTANA PRINCIPAL Y ESTILO DE LA VENTANA##################
 
@@ -107,6 +129,8 @@ raiz.iconbitmap("icono.ico")                                                    
 usuario = tk.StringVar()                                                            #variable para almacenar el usuario
 password = tk.StringVar()                                                           #variable para almacenar la contraseña
 correo = tk.StringVar()                                                             #variable para almacenar el correo
+notas = []                                                                          #creo una lista vacia
+identificador = 0                                                                   #inicializo un identificador
 
 #########################AÑADIMOS WIDGETS A LA VENTANA############################
 
