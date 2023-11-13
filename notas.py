@@ -5,8 +5,7 @@ from tkinter.colorchooser import askcolor                                       
 import time
 
 class Nota:                                                                         #Declaramos una clase
-    def __init__(self,identificador,texto,color,fecha):                                           #Metodo constructor
-        self.identificador = identificador
+    def __init__(self,texto,color,fecha):                                           #Metodo constructor
         self.texto = texto                                                          #Creo una propiedad texto
         self.color = color                                                          #Creo una propiedad color
         self.fecha = fecha                                                          #Creo una propiedad fecha
@@ -38,7 +37,7 @@ cursor.execute("""
 """)
 
 
-#####################DECLARO FUNCIONES PARA EL PROGRAMA#############################
+#####################DECLARO FUNCIONES PARA EL PROGRAMA######################################
 
 def login():                                                                        #función de inicio de sesion
     print("vamos a iniciar sesion")                                                 #imprime en pantalla
@@ -80,6 +79,21 @@ def login():                                                                    
             botonnuevanota.pack(pady=10,expand=True)                                    #lo empaqueto
             botonguardanotas = ttk.Button(marco2,text="Guardar notas",command=guardaNotas)          #creo el boton de iniciar sesion
             botonguardanotas.pack(pady=10,expand=True)                                    #lo empaqueto
+
+            #CARGO LAS NOTAS DE LA BASE DE DATOS
+            cursor.execute('SELECT * FROM notas')
+            datos = cursor.fetchall()
+            for i in datos:
+                print("Hay una nota en la base de datos")
+                cargaNota(i[1],i[2],i[3])
+                notas.append(Nota(i[1],i[2],i[3]))
+                #identificador = identificador + 1
+                for i in notas:                                                                 #Para cada una de las notas
+                    print(i.texto)                                                              #Imprimo su contenido
+                    print(i.color)                                                              #Imprimo su color
+                    print(i.fecha)                                                              #Imprimo su fecha
+                         
+                
         
         else:                                                                       #si no existe
             print("el usuario no es correcto")
@@ -91,15 +105,15 @@ def guardaNotas():
     print(i.fecha)                                                      #Imprimo su fecha
     cursor.execute("INSERT INTO notas VALUES(NULL,'"+i.texto+"','"+i.color+"','"+i.fecha+"');") #Inserto una a una las notas en la base de datos
     conexion.commit()  
+
 def crearNota():
     global notas                                                                    #traigo la variable global notas
     global identificador                                                            #traigo la variable global identificador
     fecha = str(int(time.time()))                                                   #saco la fecha actual
     
-    notas.append(Nota(identificador,'','',fecha))                                   #añado la nota a la lista
+    notas.append(Nota('','',fecha))                                   #añado la nota a la lista
     
     for i in notas:                                                                 #Para cada una de las notas
-        print(i.identificador)                                                      #imprimo el identificador
         print(i.texto)                                                              #Imprimo su contenido
         print(i.color)                                                              #Imprimo su color
         print(i.fecha)                                                              #Imprimo su fecha
@@ -117,6 +131,37 @@ def crearNota():
     selectorcolor.pack()
     identificador = identificador + 1                                               #subo el identificador
 
+def cargaNota(mitexto,color,fecha):
+    global notas                                                                    #traigo la variable global notas
+    global identificador                                                            #traigo la variable global identificador
+    fecha = str(int(time.time()))                                                   #saco la fecha actual
+    
+    notas.append(Nota('','',fecha))                                   #añado la nota a la lista
+    
+    for i in notas:                                                                 #Para cada una de las notas
+        print(i.texto)                                                              #Imprimo su contenido
+        print(i.color)                                                              #Imprimo su color
+        print(i.fecha)                                                              #Imprimo su fecha
+   
+    ventananuevanota = tk.Toplevel()                                                #nueva ventana flotante
+    anchura = 400                                                                   #defino anchura
+    altura = 500                                                                    #defino altura
+    ventananuevanota.geometry(str(anchura)+'x'+str(altura)+'+100+100')              #geometria de la ventana y margen con la pantalla
+    ventananuevanota.iconbitmap("icono.ico")                                        #icono de la ventana
+    texto = tk.Text(ventananuevanota,bg="white")
+    texto.insert("1.0",mitexto)
+    texto.pack()
+    ventananuevanota.configure(bg = color)                                           #cambio el color de fondo a la ventana a la ventana seleccionada
+    try:
+        texto.configure(bg = color)
+    except Exception as e:
+        print(e)
+    identificadorpropio = identificador
+    selectorcolor = ttk.Button(ventananuevanota,text="Cambiar color",command=lambda:cambiaColor(ventananuevanota,texto,identificadorpropio))
+    selectorcolor.pack()
+    identificador = identificador + 1                                               #subo el identificador
+
+
 def cambiaColor(ventana,texto,identificador):                                       #creo la funcion de cambio de color
     nuevocolor = askcolor(title="Selecciona un color")                              #saco un selector de color
     ventana.configure(bg = nuevocolor[1])                                           #cambio el color de fondo a la ventana a la ventana seleccionada
@@ -125,7 +170,6 @@ def cambiaColor(ventana,texto,identificador):                                   
     notas[identificador].texto = texto.get("1.0",tk.END)
     print("El identificador es "+str(identificador))
     for i in notas:                                                                 #Para cada una de las notas
-        print(i.identificador)                                                      #imprimo el identificador
         print(i.texto)                                                              #Imprimo su contenido
         print(i.color)                                                              #Imprimo su color
         print(i.fecha)                                                              #Imprimo su fecha
