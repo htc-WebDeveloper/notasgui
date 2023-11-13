@@ -78,11 +78,19 @@ def login():                                                                    
             etiquetaicono.pack()                                                    #empaqueto
             botonnuevanota = ttk.Button(marco2,text="Nueva nota",command=crearNota)          #creo el boton de iniciar sesion
             botonnuevanota.pack(pady=10,expand=True)                                    #lo empaqueto
+            botonguardanotas = ttk.Button(marco2,text="Guardar notas",command=guardaNotas)          #creo el boton de iniciar sesion
+            botonguardanotas.pack(pady=10,expand=True)                                    #lo empaqueto
         
         else:                                                                       #si no existe
             print("el usuario no es correcto")
             raiz.after(3000,lambda:raiz.destroy())                                  #cierra la ventana
-
+def guardaNotas():
+   for i in notas:                                                         #Para cada una de las notas
+    print(i.texto)                                                      #Imprimo su contenido
+    print(i.color)                                                      #Imprimo su color
+    print(i.fecha)                                                      #Imprimo su fecha
+    cursor.execute("INSERT INTO notas VALUES(NULL,'"+i.texto+"','"+i.color+"','"+i.fecha+"');") #Inserto una a una las notas en la base de datos
+    conexion.commit()  
 def crearNota():
     global notas                                                                    #traigo la variable global notas
     global identificador                                                            #traigo la variable global identificador
